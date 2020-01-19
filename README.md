@@ -11,6 +11,9 @@
 * Packages
     + about dlookr package.pdf
         + dlookr 패키지에 대한 소개
+    + dlookr
+        + diagonosis.pdf
+            + dlookr 패키지의 데이터 진단에 대한 기능 소개
 * Text Analytics
     + 01_President_Speech_Slide.pdf
         + 대통령 연설문 분석하기 - 가벼운 Text Analytics을 중심으로
