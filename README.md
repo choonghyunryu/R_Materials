@@ -14,6 +14,8 @@
     + dlookr
         + diagonosis.pdf
             + dlookr 패키지의 데이터 진단에 대한 기능 소개
+        + EDA.pdf
+            + dlookr 패키지의 EDA에 대한 기능 소개            
 * Text Analytics
     + 01_President_Speech_Slide.pdf
         + 대통령 연설문 분석하기 - 가벼운 Text Analytics을 중심으로
