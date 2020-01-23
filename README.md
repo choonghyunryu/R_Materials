@@ -23,6 +23,8 @@
             + 데이터셋의 클린징에 대한 기능 소개
         + split.pdf
             + 데이터셋을 트레이닝셋과 테스트셋으로 나누는 기능에 대한 소개
+        + modeling.pdf
+            + Binary classification modeling 기능에 대한 소개
 * Text Analytics
     + 01_President_Speech_Slide.pdf
         + 대통령 연설문 분석하기 - 가벼운 Text Analytics을 중심으로
