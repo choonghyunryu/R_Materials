@@ -9,6 +9,8 @@
     + 01_DataManipulation_Extract.pdf
         + 데이터 연산 및 조작 - Extract과 Replace를 중심으로
 * Packages
+    + 01_Submit_CRAN.pdf
+        + Submit R package in Mac OS X
     + about dlookr package.pdf
         + dlookr 패키지에 대한 소개
     + dlookr
