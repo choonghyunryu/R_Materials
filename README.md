@@ -32,4 +32,7 @@
         + 대통령 연설문 분석하기 - 가벼운 Text Analytics을 중심으로
     + Documents_Texonomy.pdf
         + Documents Taxonomy - LASSO Regression을 중심으로
-
+* Conference
+    + 2013
+        + R의 소개_20130510.pdf
+            + R의 이해와 응용
