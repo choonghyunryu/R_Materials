@@ -36,6 +36,9 @@
     + 2013
         + R의 소개_20130510.pdf
             + R의 이해와 응용
+    + KRUG_2013
+        + Intro.pdf
+            + KRUG 2013 Introduction           
 * Education
     + R의 소개.pdf
         + R의 이해와 응용
