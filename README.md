@@ -38,7 +38,9 @@
             + R의 이해와 응용
     + KRUG_2013
         + Intro.pdf
-            + KRUG 2013 Introduction           
+            + KRUG 2013 Introduction
+        + R_Clinic_유충현.pdf
+            + about R Clinic
 * Education
     + R의 소개.pdf
         + R의 이해와 응용
