@@ -41,6 +41,8 @@
             + KRUG 2013 Introduction
         + R_Clinic_유충현.pdf
             + about R Clinic
+        + R_Clinic.R
+            + R script for `about R Clinic`            
 * Education
     + R의 소개.pdf
         + R의 이해와 응용
