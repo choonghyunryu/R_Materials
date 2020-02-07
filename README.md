@@ -42,7 +42,10 @@
         + R_Clinic_유충현.pdf
             + about R Clinic
         + R_Clinic.R
-            + R script for `about R Clinic`            
+            + R script for `about R Clinic`    
+    + 2014
+        + Big Data 시장에서의 Data Scientist의 역할과 비전_유충현.pdf
+            + Big Data 시장에서의 Data Scientist의 역할과 비전 - IT Daily          
 * Education
     + R의 소개.pdf
         + R의 이해와 응용
