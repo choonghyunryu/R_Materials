@@ -45,7 +45,10 @@
             + R script for `about R Clinic`    
     + 2014
         + Big Data 시장에서의 Data Scientist의 역할과 비전_유충현.pdf
-            + Big Data 시장에서의 Data Scientist의 역할과 비전 - IT Daily          
+            + Big Data 시장에서의 Data Scientist의 역할과 비전 - IT Daily
+    + 2017
+        + Oracle_Code_유충현_20170830.pdf
+            + 빅데이터 분석 환경과 개발자가 분석가가 되는 효율적인 방법 - Oracel Code             
 * Education
     + R의 소개.pdf
         + R의 이해와 응용
