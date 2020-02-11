@@ -36,6 +36,16 @@
     + KRUG_2011
         + 컨퍼런스_현수막.jpg
             + KRUG 2011 컨퍼런스 현수막 디자인 시안
+        + Welcome Remark
+            + Duncan
+                + Welcome-2.pdf : doc
+                + Welcome.mp3 : Speech
+            + John Fox  
+                + john fox speech for korean useR! conference speech.pdf : doc
+                + john fox speech for korean useR! conference speech translation.pdf : korean doc
+                + John Fox.pdf : doc
+            + Tal Galili 
+                + useR2011_korea.wmv : Speech
     + 2013
         + R의 소개_20130510.pdf
             + R의 이해와 응용
