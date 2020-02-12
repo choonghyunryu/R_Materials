@@ -36,6 +36,12 @@
     + KRUG_2011
         + 컨퍼런스_현수막.jpg
             + KRUG 2011 컨퍼런스 현수막 디자인 시안
+        + R User Conference 2011_브로셔_ver.1.0.pdf
+            + 컨퍼런스 브로셔
+        + 컨퍼런스 프로그램_V7.xlsx
+            + 컨퍼런스 프로그램 기획
+        + Pre Survey Result.pdf
+            + 사전 설문조가 분석
         + Welcome Remark
             + Duncan
                 + Welcome-2.pdf : doc
