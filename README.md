@@ -52,6 +52,17 @@
                 + John Fox.pdf : doc
             + Tal Galili 
                 + useR2011_korea.wmv : Speech
+        + 발표자료
+            + bigdata_권정민.pdf
+            + Genomic data analysis with R_김세환.pdf
+            + Lets Taste R Through Cliquet Option Pricing_김동업.pdf
+            + R 사용자의 저변 확대와 한글화_정우준.pdf
+            + RCommander_신종화.pdf
+            + RUGK_이철희.pdf
+            + RVisualization_유충현.pdf
+            + R과 SAS의 데이터 처리 방식_곽희은.pdf
+            + SPSS를 이용한 R연동 기능소개와 분석 기능의 시너지 효과_허준.pdf
+            + 일선 기업 현장에서의 R의 활용_김준기.pdf
     + 2013
         + R의 소개_20130510.pdf
             + R의 이해와 응용
