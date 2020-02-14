@@ -63,6 +63,9 @@
             + R과 SAS의 데이터 처리 방식_곽희은.pdf
             + SPSS를 이용한 R연동 기능소개와 분석 기능의 시너지 효과_허준.pdf
             + 일선 기업 현장에서의 R의 활용_김준기.pdf
+    + 2012
+        + R-R1-유충현_20120626.pdf
+            + Technology Trends in Big Data Analytics and Introduction to R - KRnet
     + 2013
         + R의 소개_20130510.pdf
             + R의 이해와 응용
