@@ -68,6 +68,9 @@
             + Technology Trends in Big Data Analytics and Introduction to R - KRnet
         + R에 대한 이해와 응용-유충현.pdf
             + R에 대한 이해와 응용 - 서울과학종합대학원
+    + KRUG_2012
+        + 컨퍼런스 프로그램_2012_1023.xlsx
+            + 컨퍼런스 프로그램
     + 2013
         + R의 소개_20130510.pdf
             + R의 이해와 응용
