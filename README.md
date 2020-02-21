@@ -93,6 +93,8 @@
             + association rule using aruls - 13회 KRUG Meetup 발표자료
         + 그래픽 함수 만들기.pdf
             + user defined visualization function - 14회 KRUG Meetup 발표자료
+        + Anomaly_Detection.pdf
+            + Anomaly detection using R - 15회 KRUG Meetup 발표자료            
 * Education
     + R의 소개.pdf
         + R의 이해와 응용
