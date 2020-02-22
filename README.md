@@ -1,7 +1,7 @@
 # R과 관련 생성한 문서들의 모음
 
 * Data Acquisition
-    + 00_Finance_Analytics.pdf
+    + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Data_Acquisition/00_Finance_Analytics.pdf" target="_blank">00_Finance_Analytics.pdf</a>
         + finance analytics: finance 관련 정보의 수집에 대한 노트
 * Data Manipulation
     + Manipulation_Data.pdf
