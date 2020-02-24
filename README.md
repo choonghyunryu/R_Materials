@@ -33,6 +33,9 @@
     + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Text_Analytics/Documents_Texonomy.pdf" target="_blank">Documents_Texonomy.pdf</a>
         + Documents Taxonomy - LASSO Regression을 중심으로
 * Conference
+    + 2007
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/2007/%EC%BB%A8%ED%8D%BC%EB%9F%B0%EC%8A%A4_%ED%98%84%EC%88%98%EB%A7%89.jpg" target="_blank">R 웹 어플리케이션 서버의 개발 및 응용에 대한 연구_발표자료_유충현.pdf</a>
+            + 2007년 한국통계학회 추계학술대회 발표 자료
     + KRUG_2011
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/KRUG_2011/%EC%BB%A8%ED%8D%BC%EB%9F%B0%EC%8A%A4_%ED%98%84%EC%88%98%EB%A7%89.jpg" target="_blank">컨퍼런스_현수막.jpg</a>
             + KRUG 2011 컨퍼런스 현수막 디자인 시안
