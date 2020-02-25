@@ -36,7 +36,7 @@
     + 2007
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/2007/R%20%EC%9B%B9%20%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%20%EC%84%9C%EB%B2%84%EC%9D%98%20%EA%B0%9C%EB%B0%9C%20%EB%B0%8F%20%EC%9D%91%EC%9A%A9%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%97%B0%EA%B5%AC_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C_%EC%9C%A0%EC%B6%A9%ED%98%84.pdf" target="_blank">R 웹 어플리케이션 서버의 개발 및 응용에 대한 연구_발표자료_유충현.pdf</a>
             + 2007년 한국통계학회 추계학술대회 발표 자료
-        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/2007/R%20%EC%9B%B9%20%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%20%EC%84%9C%EB%B2%84%EC%9D%98%20%EA%B0%9C%EB%B0%9C%20%EB%B0%8F%20%EC%9D%91%EC%9A%A9%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%97%B0%EA%B5%AC_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C_%EC%9C%A0%EC%B6%A9%ED%98%84.pdf" target="_blank">R 웹 어플리케이션 서버의 개발 및 응용에 대한 연구_초록.pdf</a>
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/2007/R%20%EC%9B%B9%20%EC%96%B4%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98%20%EC%84%9C%EB%B2%84%EC%9D%98%20%EA%B0%9C%EB%B0%9C%20%EB%B0%8F%20%EC%9D%91%EC%9A%A9%EC%97%90%20%EB%8C%80%ED%95%9C%20%EC%97%B0%EA%B5%AC_%EC%B4%88%EB%A1%9D.pdf" target="_blank">R 웹 어플리케이션 서버의 개발 및 응용에 대한 연구_초록.pdf</a>
             + 2007년 한국통계학회 추계학술대회 논문 초록     
     + KRUG_2011
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/KRUG_2011/%EC%BB%A8%ED%8D%BC%EB%9F%B0%EC%8A%A4_%ED%98%84%EC%88%98%EB%A7%89.jpg" target="_blank">컨퍼런스_현수막.jpg</a>
