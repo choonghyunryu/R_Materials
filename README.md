@@ -76,6 +76,8 @@
     + KRUG_2012
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/KRUG_2012/%EC%BB%A8%ED%8D%BC%EB%9F%B0%EC%8A%A4%20%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8_2012_1023.xlsx" target="_blank">컨퍼런스 프로그램_2012_1023.xlsx</a>
             + 컨퍼런스 프로그램
+        + 발표자료
+            + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/KRUG_2012/발표자료/01_R의 저변확대를 위한 노력_유충현.pdf" target="_blank">01_R의 저변확대를 위한 노력_유충현.pdf</a>
     + 2013
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/2013/R%EC%9D%98%20%EC%86%8C%EA%B0%9C_20130510.pdf" target="_blank">R의 소개_20130510.pdf</a>
             + R의 이해와 응용
