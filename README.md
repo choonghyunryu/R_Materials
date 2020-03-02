@@ -78,6 +78,8 @@
             + 컨퍼런스 프로그램
         + 발표자료
             + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/KRUG_2012/발표자료/01_R의 저변확대를 위한 노력_유충현.pdf" target="_blank">01_R의 저변확대를 위한 노력_유충현.pdf</a>
+        + 설문조사 결과 (세션평가 및 단답형 제외)
+            + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/KRUG_2012/R_user_register_list_1024_Keyin_Report_v1.pdf" target="_blank">R_user_register_list_1024_Keyin_Report_v1.pdf</a>
     + 2013
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/2013/R%EC%9D%98%20%EC%86%8C%EA%B0%9C_20130510.pdf" target="_blank">R의 소개_20130510.pdf</a>
             + R의 이해와 응용
