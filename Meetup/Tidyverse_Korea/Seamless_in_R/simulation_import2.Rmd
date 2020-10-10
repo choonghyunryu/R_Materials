@@ -1,0 +1,198 @@
+---
+title: "Seamless with R and others"
+output:
+  html_notebook: default
+  html_document:
+    df_print: paged
+params:
+  n: 10
+---
+
+## 환경 설정
+### YAML header의 파라미터 가져오기
+R markdown의 YAML header의 `params`은 markdown 조판이 아닌, R chunk에 파라미터를 넘기기 위한 key다. 이 key의 value를 가져와서 환경변수를 설정한다. 
+
+본 예제는 다음과 같은 YAML header를 설정하였다.
+
+```{r, eval=FALSE, echo=TRUE}
+---
+title: "Seamless with R and others"
+output:
+  html_notebook: default
+  html_document:
+    df_print: paged
+params:
+  n: 10
+---
+```
+
+`n`은 예제를 위한 데이터 파일을 생성할 때, 최대 n-배(times)의 파일을 생성하기 위한 파라미터다. 다음 예제의 R chunk처럼 YAML header의 파라미터를 받는다. 그리고 bash shell chunk에 전달할 파라미터는 예제처럼 `Sys.setenv()` 함수를 이용한다.
+
+```{r, environ, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+# for interface python
+library(reticulate)
+use_python("/usr/bin/python3")
+
+# for R
+n <- params$n
+
+# for bash shell
+Sys.setenv(n = n)
+
+write.csv(ggplot2::diamonds, file = "diamond_1.csv", row.names = FALSE)
+```
+
+## 예제 파일 생성하기
+ 
+### Get R environment variables
+R environments의 `n` 환경변수를 조회한다.
+
+```{r, list_n}
+Sys.getenv("n")
+```
+
+### Get bash environment Variables
+앞서 R chunk에서 `Sys.setenv()` 함수로 `iters`라는 이름의 환경변수를 생성했기 때문에 bash shell 환경에서도 `iters` 변수를 가져다 쓰면 된다.
+
+bash shell environments의 `iters` 환경변수를 조회한다.
+
+```{bash}
+env | grep ^n
+```
+
+### bash shell의 이용
+bash shell chunk를 만들어 시뮬레이션을 위한 예제 파일을 생성한다. **당연히 R이 아니라 bash shell script를 기술해야 한다.** 
+
+```{bash}
+# split the header
+head -n 1 diamond_1.csv > header
+
+for i in `seq 2 $n`
+do
+  prev=`expr $i - 1`
+  cat diamond_$prev.csv diamond_$prev.csv | grep -v carat > temp
+  cat header temp > diamond_$i.csv
+done
+
+rm header temp
+```
+
+## 데이터 파일 읽어들이기
+
+예제를 위해 생성한 diamond CSV 데이터 파일을 R 환경으로 읽어들인다. 여기서 전통적인 `read.csv()` 함수와 tidyverse(**readr package**)의 `read_csv()` 함수의 성능을 비교한다.
+
+```{r, message=FALSE, warning=FALSE, cache=FALSE}
+elapse <- data.frame(method = rep(c("traditonal", "tidyverse"), times = n), 
+                     user = rep(0, 2 * n), system = rep(0, 2 * n), 
+                     elapsed = rep(0, 2 * n), obs = rep(0, 2 * n), 
+                     size = rep(0, 2 * n))
+
+for (i in 1:n) {
+  fname <- sprintf("diamond_%d.csv", i)
+  
+  # Calculate the elapsed time that from file to R objects  
+  elapse[i * 2 - 1, 2:4] <- 
+    system.time(diamond_traditonal <- read.csv(fname))[1:3]
+  elapse[i * 2, 2:4] <- 
+    system.time(diamond_tidyverse <- readr::read_csv(fname))[1:3]
+  
+  # Calculate the number of observation  
+  elapse[i * 2 - 1, "obs"] <- nrow(diamond_traditonal)
+  elapse[i * 2, "obs"] <- nrow(diamond_tidyverse)
+  
+  # Calculate the size of objects
+  elapse[i * 2 - 1, "size"] <- object.size(diamond_traditonal) / 1024 ^ 2
+  elapse[i * 2, "size"] <- object.size(diamond_tidyverse) / 1024 ^ 2
+}
+```
+
+## 데이터 가져오기 성능 비교 
+
+### `read.csv()` vs `read_csv()`
+물론 성능이 향상되었지만, `read.csv()` 함수는 데이터의 크기다 작은 시절에 개발된 함수이기 때문에 대용량의 데이터를 읽는데 최적화 되어 있지 않다. 그러므로 enterprise 데이터에는 적합하지 않다. `toy 데이터셋`에 사용하기에 용이하지만, 대용량의 경우에는 데이터를 읽는 수행속도가 현저하게 떨어진다.
+
+`read_csv()` 함수는 빠른 데이터 파일의 입수를 위해 설계된 함수이므로 대용량 데이터도 빠르게 읽어들인다. 
+
+다음은 예제 데이터 파일로 두 함수의 수행속도 성능을 비교한 집계 자료다.
+
+```{r, list_result}
+knitr::kable(elapse) %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+성능의 차를 쉽게 비교하기 위해서 시각화해 보았다.
+
+```{r, plot_elapse, warning=FALSE}
+ggplot(data = elapse, aes(x = obs, y = elapsed, group = method, colour = method)) +
+  geom_line(aes(linetype = method)) +
+  geom_point(aes(shape = method)) +
+  ggtitle("Elapsed time by packages") +
+  ylab("Time (second)") +
+  xlab("Number of records")
+```
+
+### tidyverse vs data.table
+`tidyverse`에서 데이터를 조작하는 기능은 `dplyr` 패키지가 담당하고 있다. 물론 `dplyr` 패키지의 수행 속도도 data frame을 조작하는 전통적인 방법과 함수보다 빠르다. 그러나, 수행속도만 놓고 보면 `data.table` 패키지가 `dplyr` 패키지보다 빠르다. 그러나 `dplyr` 패키지의 장점은 SQL의 로직을 연상하면서도, 데이터를 seamless하게 처리할 수 있다는 장점으로 `data.table` 패키지에 우위에 있다고 생각한다.
+
+`data.table` 패키지의 `fread()` 함수는 데이터 파일을 읽어들이는 함수로 `readr` 패키지의 `read_*()` 함수보다 수행속도가 빠르다. 그러나 읽어들인 데이터가 `data.table` 객체로 만들어지기 때문에 `data.table` 패키지를 사용할 경우에만 유용하겠다 할 수 있다.
+
+## R Interface to Python
+
+```{python, import_pandas}
+import pandas
+import time
+
+elapse_time = [0] * r.n 
+obs = [0] * r.n 
+size = [0] * r.n 
+
+for i in range(r.n):
+  path = "diamond_" + str(i + 1) + ".csv"
+  
+  start_time = time.time()
+  diamond = pandas.read_csv(path)
+  elapse_time[i] = time.time() - start_time
+  obs[i] = diamond.shape[0]
+  size[i] = sys.getsizeof(diamond) / 1024 ** 2
+```
+
+```{r, get_py, warning=FALSE}
+elapse_merge <- data.frame(method = "python_pandas",  
+                     user = NA, system = NA, 
+                     elapsed = py$elapse_time, obs = py$obs, size = py$size)
+
+elapse_merge <- rbind(elapse_merge, elapse)
+
+ggplot(data = elapse_merge, aes(x = obs, y = elapsed, group = method, colour = method)) +
+  geom_line(aes(linetype = method)) +
+  geom_point(aes(shape = method)) +
+  ggtitle("Elapsed time by packages") +
+  ylab("Time (second)") +
+  xlab("Number of records")
+
+ggplot(data = elapse_merge, aes(x = obs, y = size, group = method, colour = method)) +
+  geom_line(aes(linetype = method)) +
+  geom_point(aes(shape = method)) +
+  ggtitle("Object size by packages") +
+  ylab("Size (Mb)") +
+  xlab("Number of records")
+```
+
+## Invoke a system command 
+R 환경에서 `system function call`의 방법으로 bash shell을 호출할 수 있다. 예제 환경은 Mac OS 환경이기에 bash shell을 호출한다. linux/UNIX 계열의 OS에서는 기본 shell을 호출할 수 있다. 그러나 MS-Windows에서는 Rtools를 설치해야만 기본적인 linux command를 수행할 수 있다. 
+
+> 참고로, Rtools는 MS-Windows 환경에서 linux를 에뮬레이터 해주는 MinGW(Minimalist GNU for Windows) 기반으로 작동한다. 
+
+R에서 `system function call`을 수행하기 위해서 `system()` 함수를 사용한다.
+
+다음은 예제를 위해 생성한 파일들을 삭제하는 `system function call`이다.
+
+```{r, remove_temp, message=FALSE, warning=FALSE}
+# 어떤 shell을 호출하는지 검색
+system("ps", intern = TRUE)
+
+# 생성한 파일 삭제
+system("rm diamond\\_*.csv")
+```
