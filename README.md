@@ -103,7 +103,10 @@
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/KRUG/%EA%B7%B8%EB%9E%98%ED%94%BD%20%ED%95%A8%EC%88%98%20%EB%A7%8C%EB%93%A4%EA%B8%B0.pdf" target="_blank">그래픽 함수 만들기.pdf</a>
             + user defined visualization function - 14회 KRUG Meetup 발표자료
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/KRUG/Anomaly_Detection.pdf" target="_blank">Anomaly_Detection.pdf</a>
-            + Anomaly detection using R - 15회 KRUG Meetup 발표자료            
+            + Anomaly detection using R - 15회 KRUG Meetup 발표자료    
+    + Tidyverse Korea
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/Tidyverse_Korea/Seamless_in_R/201014_Tidy_and Seamless.pdf" target="_blank">201014_Tidy_and Seamless.pdf</a>
+            + Tidy and Seamless in R - 2020sus 10월 Tidyverse Korea Meetup 발표자료            
 * Education
     + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Education/R%EC%9D%98%20%EC%86%8C%EA%B0%9C.pdf" target="_blank">R의 소개.pdf</a>
         + R의 이해와 응용
