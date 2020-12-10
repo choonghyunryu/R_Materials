@@ -84,6 +84,8 @@
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/2013/R%EC%9D%98%20%EC%86%8C%EA%B0%9C_20130510.pdf" target="_blank">R의 소개_20130510.pdf</a>
             + R의 이해와 응용
     + KRUG_2013
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/KRUG_2013/R User Conference 2013_브로셔_ver.1.0.pdf" target="_blank">R User Conference 2013_브로셔_ver.1.0.pdf</a>
+            + KRUG 2013 브로셔 외
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/KRUG_2013/Intro.pdf" target="_blank">Intro.pdf</a>
             + KRUG 2013 Introduction
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Conference/KRUG_2013/R_Clinic_%EC%9C%A0%EC%B6%A9%ED%98%84.pdf" target="_blank">R_Clinic_유충현.pdf</a>
@@ -98,6 +100,14 @@
             + 빅데이터 분석 환경과 개발자가 분석가가 되는 효율적인 방법 - Oracel Code
 * Meetup
     + KRUG
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/KRUG/사용자 정의 그래프 함수 만들기.pdf" target="_blank">사용자 정의 그래프 함수 만들기.pdf</a>
+            + 사용자 정의 그래프 함수 만들기 - 3회 KRUG Meetup 발표자료
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/KRUG/R 예외처리 및 Debug.pdf" target="_blank">R 예외처리 및 Debug.pdf</a>
+            + R 예외처리 및 Debug - 4회 KRUG Meetup 발표자료
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/KRUG/Web Deployment with RWas.pdf" target="_blank">Web Deployment with RWas.pdf</a>
+            + Web Deployment with RWas - 7회 KRUG Meetup 발표자료               
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/KRUG/tables in LaTeX.pdf" target="_blank">tables in LaTeX.pdf</a>
+            + Reproducible Research - 9회 KRUG Meetup 발표자료              
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/KRUG/association.pdf" target="_blank">association.pdf</a>
             + association rule using aruls - 13회 KRUG Meetup 발표자료
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/KRUG/%EA%B7%B8%EB%9E%98%ED%94%BD%20%ED%95%A8%EC%88%98%20%EB%A7%8C%EB%93%A4%EA%B8%B0.pdf" target="_blank">그래픽 함수 만들기.pdf</a>

@@ -1,0 +1,70 @@
+---
+title: "Call Pycaret from R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Create Python Environments
+
+
+```{r python_env}
+library(reticulate)
+
+use_python("/usr/bin/python3")
+```
+
+## Prepare the data
+
+
+```{r pre_data}
+# import pycaret.datasets.*
+pcaret_data <- import("pycaret.datasets", as = "pd", convert = FALSE)
+
+juice <- pcaret_data$get_data("juice")
+juice <- reticulate::py_to_r(juice)
+```
+
+
+## Import Pycaret package
+
+```{r import_pycaret}
+# import pycaret.classification.*
+pcaret_model <- import("pycaret.classification", as = "pcaret", convert = FALSE)
+
+# intialize the setup (in Non-Notebook env)
+exp_clf = pcaret_model$setup(juice, target = 'Purchase', html = FALSE, silent = TRUE)
+```
+
+
+## Get best model
+
+```{r best_model}
+best <- pcaret_model$compare_models()
+```
+
+
+## Create stack model
+
+```{r stacking}
+# create individual models for stacking
+ridge <- pcaret_model$create_model('ridge')
+lda <- pcaret_model$create_model('lda')
+gbc <- pcaret_model$create_model('gbc')
+xgboost <- pcaret_model$create_model('xgboost')
+
+# stacking models
+stacker = pcaret_model$stack_models(estimator_list = list(ridge, lda, gbc), 
+                                    meta_model = xgboost)
+```
+
+
+## Plot ROC
+
+```{r ROC}
+pcaret_model$plot_model(stacker)
+```
+
+
