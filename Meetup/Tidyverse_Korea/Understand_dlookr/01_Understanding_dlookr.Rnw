@@ -1,0 +1,597 @@
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%        LOADING DOCUMENT
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\documentclass[t, newPxFont,numfooter,sectionpages]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[hangul]{kotex}
+\usetheme{sthlm}
+\usepackage{pgfplots}
+\usepackage{cancel}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%   PRESENTATION INFORMATION
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\title{Understanding dlookr package}
+\subtitle{실습을 중심으로}
+\date{2018/05/23}
+\author{유충현}
+
+\hypersetup{
+pdfencoding = auto,
+pdfauthor = {유충현: choonghyun.ryu@gmail.com},
+pdfsubject = {Understanding dlookr package},
+pdfkeywords = {diagnose data, EDA, transform data, dlookr},
+pdfcreator = {}
+}
+
+\begin{document}
+
+\begingroup
+\setbeamercolor{frametitle}{bg=\cnGreen}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%   TITLE PAGE
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\maketitle
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%   TABLE OF CONTENTS: OVERVIEW
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+\section*{Overview}
+\begin{frame}{Overview}
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%   TABLE OF CONTENTS: OVERVIEW
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\section{Motivation}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: 서론
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{First Topic - rstudio::conf 2018}
+    
+2018-01-31 ~ 2018-02-03에 걸쳐 San Diego에서 진행된 \alert{rstudio::conf 2018}에 참석하는 행운을 얻었다. 컨퍼런스는 \alert{tidyverse package} 와 Shiny package에 대한 세션들이 주를 이루었다. 2일 과정의 \alert{Data Science in tidyverse} 교육 세션과 2일 과정의 컨퍼런스를 통해 tidyverse의 성장세를 느낄 수 있었다.
+
+\vspace{1em}
+
+tidyverse package는 \alert{데이터를 조작하는 dplyr package}와 \alert{데이터를 시각적으로 탐색하는 ggplot2 package}가 주류를 이루고 있다. 자유도가 높은 Analytics에서 Modeling 과정을 제외한 데이터 입출력, 데이터 전처리, 시각화 과정에 어느 정도 표준으로 자리매김하고 있다.
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: rstudio::conf 2018 
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{rstudio::conf 2018 - 컨퍼런스 참석}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=0.8\textwidth]{imgs/conf.jpg}}
+\caption{rstudio::conf 2018 참석}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: rstudio::conf 2018 
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{rstudio::conf 2018 - 유명 인사들을 만나다}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=0.8\textwidth]{imgs/hadley.jpg}}
+\caption{Hadley Wickham}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: rstudio::conf 2018 
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{rstudio::conf 2018 - 저자 사인북}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=0.4\textwidth]{imgs/advance.jpg}\includegraphics[width=0.4\textwidth]{imgs/advance_sign.jpg}}
+\caption{Advanced R - Hadley Wickham}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: rstudio::conf 2018 
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{rstudio::conf 2018 - 저자 사인북}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=0.4\textwidth]{imgs/r4ds.jpg}\includegraphics[width=0.4\textwidth]{imgs/r4ds_sign.jpg}}
+\caption{R for Data Science - Garrett Grolemund}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: rstudio::conf 2018 
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{rstudio::conf 2018 - 저자 사인북}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=0.4\textwidth]{imgs/graphics.jpg}\includegraphics[width=0.4\textwidth]{imgs/graphics_sign.jpg}}
+\caption{R Graphics Cookbook - Windton Chang}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: rstudio::conf 2018 
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{rstudio::conf 2018 - Stickers}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=0.8\textwidth]{imgs/sticker.jpg}}
+\caption{RStudio family package's Stickers}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: 서론
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{Second Topic - dlookr package}
+    
+rstudio::conf 2018를 다녀와서 \alert{"R User에게 도움을 줄 수 있는 packages를 만들어보자."}는 Motivation이 생겼다. 이왕이면 tidyverse package와 궁합이 맞는 packages를 만들고 싶었다.
+
+\vspace{1em}
+
+\alert{주말을 이용한 3개월의 기간동안} \alert{데이터 품질 진단}, \alert{탐색적 데이터 분석}, \alert{변수 변환}을 지원하는 dlookr package를 만들어 배포할 수 있었다.
+
+\vspace{1em}
+
+회사에서 사용하는 \alert{private package}를 7종 개발하였지만, \alert{CRAN의 public package}의 여러 제약 사항과, \alert{github}의 버전 관리와 협업 체계는 너무나 낯설고 어려운 과정이었다.
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: dlookr package - bucket lists
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{dlookr package - bucket lists}
+\cBlue{``나도 유용한 패키지를 만들어서 누군가의 노트북에 스티커로 붙여 놓을 수 있었으면 좋겠다.''}\\
+
+\vspace{1em}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=0.95\textwidth]{imgs/hexbin.jpg}}
+\caption{My bucket lists - hexbin stickers}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: 무엇을 만들것인가 ?!
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{무엇을 만들것인가 ?!}
+\cBlue{``tidyverse package는 데이터 모델링을 위한 패키지라는 느낌보다는 데이터 조작과 시각화 및 함수형 프로그래밍을 위한 low levels 패키지라는 느낌을 지울 수 없다. 좀더 분석가에게 유용하게 활용될 수 있는 데이터 분석 툴을 만들어 보자.''}\\
+
+\vspace{1em}
+
+자유도가 높은 데이터분석에서 표준적인 툴이 가능하겠는가?!!!
+
+\begin{itemize}
+    \item \alert{dlookr} - 0.3.0 개발:
+    \begin{itemize}
+        \item \texttt{전처리, EDA, 변수변환 과정을 지원하자., \cBlue{look data}}.
+    \end{itemize}
+    \item alookr - not yet:
+    \begin{itemize}
+        \item \texttt{데이터 모델링 과정을 지원하자., \cBlue{look analytics}}.
+    \end{itemize}
+    \item mlookr - not yet:
+    \begin{itemize}
+        \item \texttt{모델 배포 및 관리를 지원하자., \cBlue{look models}}.
+    \end{itemize}    
+\end{itemize}
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: 알수록 어렵고, 할수록 부족해!!!
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{개발은 쉬운데, 배포가 어려워!!!}
+\cBlue{``패키지 개발은 그럭저럭 쉬웠는데, CRAN 배포와 github 관리가 어려움을 알았다.''}\\
+
+\begin{itemize}
+    \item CRAN:
+    \begin{itemize}
+        \item \texttt{\alert{도움말 한글 불가}}
+        \begin{itemize}
+            \item private 패키지는 한글 도움말이 가능하나, CRAN은 불가
+            \item 부족한 영어 실력
+        \end{itemize}
+        \item \texttt{\alert{도움말 예제 Runtime 제약}}
+        \begin{itemize}
+            \item 도움말 예제 수행 속도가 5초를 상회하는 것 불가
+            \item \textbackslash dontrun\{\}이 아닌, \textbackslash donttest\{\} 사용해야 함   
+        \end{itemize}
+        \item \texttt{\alert{library(), require() 불가}}
+        \begin{itemize}
+            \item package::function() 형식으로 호출
+            \item NAMESPACE 파일에 importFrom(package,function)을 기술
+        \end{itemize} 
+        \item \texttt{\alert{DESCRIPTION 파일의 엄격한 심사}}
+        \begin{itemize}
+            \item Title을 유사 기능의 패키지와 구별되도록 구체적으로 명기
+            \item Description의 대소문자 체크
+        \end{itemize}
+        \item \texttt{\alert{행운이 있었다}}
+        \begin{itemize}
+            \item 심사자가 \alert{B.D. Ripley}가 아닌 \alert{Swetlana Herbrandt}
+        \end{itemize}        
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: dlookr package - bucket lists
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{dlookr package - bucket lists}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=0.8\textwidth]{imgs/sticker2.jpg}}
+\caption{My bucket lists - hexbin stickers 완료}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%
+%   SECTION: dlookr exercise
+%
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\section{dlookr exercises}
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: about dlookr
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{about dlookr}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=1.0\textwidth]{imgs/dlookr.png}}
+\caption{CRAN - dlookr page}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: about dlookr
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{about dlookr}
+
+\begin{center}
+\begin{figure}
+    \centerline{\includegraphics[width=0.9\textwidth]{imgs/dlookr2.png}}
+\caption{github - dlookr README.md}
+\end{figure}
+\end{center}
+
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: dlookr의 기능
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{dlookr의 기능}
+\cBlue{"model fitting 이전 과정에서의 데이터진단/EDA/변수변환을 지원한다."} \\
+\vspace{1em}
+
+\begin{itemize}
+  \item 데이터진단
+  \begin{itemize}
+    \item 수치변수/범주형 변수의 품질진단
+    \item 이상치 진단 및 시각화
+  \end{itemize}
+  \item EDA
+  \begin{itemize}
+    \item 기술통계량 계산 및 정규성 검정과 시각화
+    \item 상관계수 계산 및 상관관계 시각화
+    \item Target variable과 predictor와의 관계 규명 및 시각화    
+  \end{itemize}  
+  \item 변수변환
+  \begin{itemize}
+    \item 결측치와 이상치의 대체 및 표준화
+    \item binning 및 optimal binning  
+  \end{itemize}   
+  \item 자동화된 보고서 작성
+  \begin{itemize}
+    \item 데이터진단/EDA/변수변환 보고서 작성
+  \end{itemize}    
+\end{itemize}
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: skimr과의 비교
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}{skimr과의 비교}
+\cBlue{"이미 유사한 기능의 패키지가 있었다"} \\
+\vspace{1em}
+
+\begin{itemize}
+  \item skimr
+  \begin{itemize}
+    \item 출시일 : 2017-12-21
+    \item 기능 : Compact and Flexible Summaries of Data
+    \item dplyr과의 궁합 - use pipe
+    \item support for inline spark graphs
+  \end{itemize}
+  \item dlookr
+  \begin{itemize}
+    \item 출시일 : 2018-04-27
+    \item 기능 : Tools for Data Diagnosis, Exploration, Transformation
+    \item dplyr과의 궁합 - use pipe
+    \item automated reporting
+  \end{itemize}  
+\end{itemize}
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: dlookr 설치
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[fragile]{exercises: dlookr 설치}
+\cBlue{"dlookr 패키지를 설치하자"} \\
+\vspace{1em}
+
+<<comment=NA, prompt=TRUE, message=FALSE, warning=FALSE, eval=FALSE>>=
+# CRAN으로부터의 설치
+install.packages("dlookr")
+
+# github으로부터의 설치
+devtools::install_github("choonghyunryu/dlookr")
+
+# github으로부터의 설치 (vignettes 포함, 권장함)
+install.packages(c("nycflights13", "ISLR"))
+devtools::install_github("choonghyunryu/dlookr", 
+  build_vignettes = TRUE)
+@
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: 어떻게 학습할 것인가?
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[fragile]{exercises: 어떻게 학습할 것인가?}
+\cBlue{"vignettes을 활용하자."} \\
+\vspace{1em}
+
+\begin{itemize}
+  \item vignettes - 영문으로 제공
+  \begin{itemize}
+    \item browseVignettes(package = "dlookr")
+  \end{itemize}
+  \item blog - vignettes을 한글로 제공
+  \begin{itemize}
+    \item 데이터 품질진단
+    \begin{itemize}
+      \item https://choonghyunryu.github.io/ko/2018/05/dlookr-데이터-품질-진단/
+    \end{itemize}  
+    \item 탐색적 데이터분석
+    \begin{itemize}
+      \item https://choonghyunryu.github.io/ko/2018/05/dlookr-탐색적-데이터-분석/
+    \end{itemize}  
+    \item 데이터 변환
+    \begin{itemize}
+      \item hhttps://choonghyunryu.github.io/ko/2018/05/dlookr-데이터-변환/
+    \end{itemize}      
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: exercises: 데이터의 준비
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[fragile]{exercises: 데이터의 준비}
+\cBlue{"예제를 위한 데이터를 준비하자"} \\
+\vspace{1em}
+
+<<comment=NA, prompt=TRUE, message=FALSE, warning=FALSE, eval=FALSE>>=
+# 2013년 NYC를 출발한 모든 항공편에 출발과 도착에 대한 정보
+library("nycflights13")
+data(flights)
+
+# 400개 매장의 아동용 카시트를 판매 시뮬레이션 데이터
+carseats <- ISLR::Carseats
+
+set.seed(123)
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+set.seed(456)
+carseats[sample(seq(NROW(carseats)), 10), "Urban"] <- NA
+@
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: exercises: 자동화된 리포트 1
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[fragile]{exercises: 자동화된 리포트 1}
+\cBlue{"데이터의 품질을 진단해 보자"} \\
+\vspace{1em}
+
+<<comment=NA, prompt=TRUE, message=FALSE, warning=FALSE, eval=FALSE>>=
+# latex이 설치된 경우 -  데이터 품질 진단
+flights %>% 
+  diagnose_report()
+
+# latex이 설치되지 않은 경우 -  데이터 품질 진단 (웹버전)
+diagnose_report(flights, output_format = "html", 
+  output_file = "Diagn.html")
+@
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: exercises: 자동화된 리포트 2
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[fragile]{exercises: 자동화된 리포트 2}
+\cBlue{"탐색적 데이터 분석을 수행하자"} \\
+\vspace{1em}
+
+<<comment=NA, prompt=TRUE, message=FALSE, warning=FALSE, eval=FALSE>>=
+# 탐색적 데이터 분석 - target variable == numeric
+carseats %>%
+  eda_report(target = Sales, output_format = "html", 
+    output_file = "EDA.html")
+# 탐색적 데이터 분석 - target variable == categorical
+eda_report(carseats, US, output_format = "html", 
+  output_file = "EDA.html")
+# 탐색적 데이터 분석 - target variable is null
+eda_report(carseats, output_format = "html", 
+  output_file = "EDA2.html")
+@
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: exercises: 자동화된 리포트 3
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[fragile]{exercises: 자동화된 리포트 3}
+\cBlue{"변수의 변환을 수행해 보자"} \\
+\vspace{1em}
+
+<<comment=NA, prompt=TRUE, message=FALSE, warning=FALSE, eval=FALSE>>=
+carseats <- ISLR::Carseats
+carseats[sample(seq(NROW(carseats)), 20), "Income"] <- NA
+carseats[sample(seq(NROW(carseats)), 5), "Urban"] <- NA
+
+# 변수의 변환 - target variable is null
+transformation_report(carseats, output_format = "html")
+
+# 변수의 변환 - target variable is binary class
+transformation_report(carseats, US, output_format = "html", 
+  output_file = "Transformation.html")
+@
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: exercises: 데이터 품질 진단
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[fragile]{exercises: 데이터 품질 진단 실습}
+\cBlue{https://choonghyunryu.github.io/ko/2018/05/dlookr-데이터-품질-진단} \\
+\vspace{1em}
+
+\begin{itemize}
+  \item 학습 목표
+  \begin{itemize}
+    \item diagnose()을 이용한 변수의 개괄적 진단
+    \item diagnose\_numeric()을 이용한 수치형 변수의 상세 진단
+    \item diagnose\_category()을 이용한 범주형 변수의 상세 진단
+    \item diagnose\_outlier()를 이용한 이상치 진단
+    \item plot\_outlier()를 이용한 이상치의 시각화
+    \item diagnose\_report()를 이용한 진단 보고서 작성
+  \end{itemize}
+\end{itemize}
+\end{frame}
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: exercises: 탐색적 데이터 분석
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[fragile]{exercises: 탐색적 데이터 분석 실습}
+\cBlue{https://choonghyunryu.github.io/ko/2018/05/dlookr-탐색적-데이터-분석} \\
+\vspace{1em}
+
+\begin{itemize}
+  \item 학습 목표
+  \begin{itemize}
+    \item describe()을 이용한 기술통계량 계산
+    \item normality()을 이용한 수치형 변수의 정규성 검정
+    \item plot\_normality()를 이용한 수치변수의 정규성 시각화
+    \item correlate()을 이용한 상관계수 계산
+    \item plot\_correlate()를 이용한 상관행렬의 시각화
+    \item Target 변수에 기반한 EDA
+    \begin{itemize}
+      \item 4가지 case에 대한 EDA의 이해
+    \end{itemize}
+    \item eda\_report()를 이용한 EDA 보고서 작성  
+  \end{itemize}
+\end{itemize}
+\end{frame}
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME: exercises: 데이터 변환
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begin{frame}[fragile]{exercises: 데이터 변환 실습}
+\cBlue{https://choonghyunryu.github.io/ko/2018/05/dlookr-데이터-변환} \\
+\vspace{1em}
+
+\begin{itemize}
+  \item 학습 목표
+  \begin{itemize}
+    \item imputate\_na()을 이용한 결측치의 대체
+    \item imputate\_outlier()을 이용한 이상치의 대체
+    \item transform()을 이용한 표준화
+    \item transform()을 이용한 치우친 데이터의 보정
+    \item binning()을 이용한 개별 변수의 Binning
+    \item binning\_by()을 이용한 Optimal Binning
+    \item transformation\_report()를 이용한 데이터변환 보고서 작성
+  \end{itemize}
+\end{itemize}
+\end{frame}
+\end{frame}
+
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%   FRAME:
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+\begingroup
+\setbeamercolor{background canvas}{bg=\cnDarkGrey}
+\begin{frame}[c, plain]
+
+\centering{\cGrey{\Huge{THE \newline END}}}
+
+\end{frame}
+\endgroup
+
+\end{document}

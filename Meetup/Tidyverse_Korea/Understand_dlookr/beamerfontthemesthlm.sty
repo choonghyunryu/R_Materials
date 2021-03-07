@@ -1,0 +1,44 @@
+\ProvidesPackage{beamerfontthemesthlm}
+
+% NEWPX FONT (Latex)
+
+\if@donewPxFont%
+% Load newPx Font %
+\usefonttheme{professionalfonts}
+\usefonttheme{serif}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[full]{textcomp}
+\RequirePackage[osf]{newpxtext} % osf for text, not math
+\RequirePackage{cabin} % sans serif
+\RequirePackage[varqu,varl]{inconsolata} % sans serif mono font
+\RequirePackage[bigdelims,vvarbb]{newpxmath} % bb from STIX
+\RequirePackage[cal=boondoxo]{mathalfa} % This package provides a standard means of setting math alphabets associated with the macros \mathcal, \mathbb, \mathfrak
+\fi%
+
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+%	FONT ASSIGMENTS
+%-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+% Title Page
+%-- \setbeamerfont{title}{family=\sffamily, series=\scshape, size=\huge}
+\setbeamerfont{title}{family=\ttfamily, series=\mdseries, size=\huge}
+%-- \setbeamerfont{subtitle}{size=\Large}
+\setbeamerfont{subtitle}{size=\large, series=\mdseries}
+\setbeamerfont{date}{size=\large}
+\setbeamerfont{author}{size=\large}
+\setbeamerfont{institute}{size=\large}
+
+% Section
+\setbeamerfont{section title}{size=\Large}
+
+% Content
+%-- \setbeamerfont{frametitle}{family=\sffamily, size=\Large}
+\setbeamerfont{frametitle}{family=\ttfamily, size=\Large}
+\setbeamerfont{copyright text}{size=\tiny}
+\setbeamerfont{block title}{series=\sffamily, size=\large}
+\setbeamerfont{block title alerted}{family=\sffamily, size=\large}
+\setbeamerfont{block title example}{family=\sffamily, size=\large}
+
+\setbeamerfont{caption}{size=\small}
+\setbeamerfont{caption name}{family=\small}
+
+\setbeamerfont{page number in head/foot}{size=\scriptsize}

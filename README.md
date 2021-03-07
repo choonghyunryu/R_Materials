@@ -115,6 +115,17 @@
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/KRUG/Anomaly_Detection.pdf" target="_blank">Anomaly_Detection.pdf</a>
             + Anomaly detection using R - 15회 KRUG Meetup 발표자료    
     + Tidyverse Korea
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/Tidyverse_Korea/Understand_dlookr/01_Understanding_dlookr.Rnw" target="_blank">01_Understanding_dlookr.Rnw</a>
+            + Understanding dlookr package - 2018년 5월 Tidyverse Korea Meetup 발표자료(markdown)
+            + 생성된 문서 파일의 용량이 커서, 소스만 게시함
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/Tidyverse_Korea/Understand_dlookr/beamercolorthemesthlm.sty" target="_blank">beamercolorthemesthlm.sty</a>
+            + Beamer 컬러 테마 스타일
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/Tidyverse_Korea/Understand_dlookr/beamerfontthemesthlm.sty" target="_blank">beamerfontthemesthlm.sty</a>
+            + Beamer 폰트 테마 스타일     
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/Tidyverse_Korea/Understand_dlookr/beamerthemesthlm.sty" target="_blank">beamerthemesthlm.sty</a>
+            + Beamer 테마 스타일
+        + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/Tidyverse_Korea/Understand_dlookr/logo.png" target="_blank">logo.png</a>
+            + R 로고 이미지 파일           
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/Tidyverse_Korea/Seamless_in_R/201014_Tidy_and Seamless.pdf" target="_blank">201014_Tidy_and Seamless.pdf</a>
             + Tidy and Seamless in R - 2020년 10월 Tidyverse Korea Meetup 발표자료
         + <a href="https://github.com/choonghyunryu/R_Materials/blob/master/Meetup/Tidyverse_Korea/Diagnose_Data_EDA/20210310_Diagnosis_and EDA.pdf.zip" target="_blank">20210310_Diagnosis_and EDA.pdf</a>
